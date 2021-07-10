@@ -23,6 +23,8 @@ from utils.general import check_img_size, check_requirements, check_imshow, colo
 from utils.plots import colors, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
+nosicf = 0 #number of string in csv file
+df = pd.Series()
 
 @torch.no_grad()
 def run(weights='yolov5s.pt',  # model.pt path(s)
@@ -139,7 +141,10 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print('%gx%g ' % img.shape[2:], ' ') #размер
                 print(img.shape)
                 print(reversed(det))
-                
+                print(names[int(c)])
+                for numb in reversed(det):
+                    df[numb][0] = names[int(c)]
+                    
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
