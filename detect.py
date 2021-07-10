@@ -208,7 +208,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
-q = 0    
+q = 10  
 for i in range(ds):
     q += len(a[i][2])
 df = ['0']*q
@@ -227,7 +227,8 @@ for i in range(q):
     df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
     df[i][3] = a[y][3]
     df = a[0][2]
-g = pd.Series(len(df))
+g = [len(df), q, ds]
+g = pd.Series(g)
 g.to_csv('out.csv', index=False)
 
 def parse_opt():
