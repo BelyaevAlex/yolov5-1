@@ -206,7 +206,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     vid_writer[i].write(im0)
     
     
-        
+    numb = [0] * 5    
+   
     l = 0
     for i in range(ds):
         truedet = str(a[i][2])
