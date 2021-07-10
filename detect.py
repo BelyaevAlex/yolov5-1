@@ -226,7 +226,7 @@ for i in range(q):
     df[i][1] = a[y][1]
     df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
     df[i][3] = a[y][3]
-df = pd.Series(q)
+df = pd.Series(len(a[i][2]))
 df.to_csv('out.csv', index=False)
 
 def parse_opt():
