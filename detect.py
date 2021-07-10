@@ -152,12 +152,14 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 truedet = str(reversed(det))
                 numb = [0] * 5
                 fi = 0
+                u = 0
                 for i in range(5):
                     for j in range(len(truedet)):
-                        if truedet[j+fi].isdigit():
-                            numb[i] = truedet[j+fi:j+fi+2]
+                        if truedet[j].isdigit():
+                            numb[i] = truedet[j:j+2]
                             break
-                    fi = truedet.find(',', [fi],[len(truedet)]) 
+                    u = truedet.find(',', [0],[len(truedet)])
+                    truedet = truedet[truedet.find(',', [0],[len(truedet)]):] 
                 a[tr] = [p.name, '%gx%g ' % img.shape[2:], numb[:4], numb[5]]
                 tr += 1
                     
