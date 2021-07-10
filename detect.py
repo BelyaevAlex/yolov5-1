@@ -98,7 +98,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     ds = len(dataset)
     a = ['0'] * ds
     for i in range(ds):
-        a[i] = ['0'] * 5
+        a[i] = ['0'] * 3
     tr = 0
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -150,20 +150,21 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(p.name)
                 print(ds)
                 truedet = str(reversed(det))
-                numb = [0] * 5
+                da = [0] * 5
+                for i in range(da):
+                     da[i] = [0] * len(reversed(det)/5)
                 fi = 0
                 u = 0
-                while len(truedet) != 0:
+                a[tr] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)]
+                tr += 1
+                    while len(truedet) != 0:
                     for i in range(5):
                         for j in range(len(truedet)-u):
                            if truedet[j].isdigit():
-                               numb[i] = truedet[j:j+3]
+                               numb[i] = truedet[j:j+3] 
                                break
                         u = truedet.find(',')
                         truedet = truedet[truedet.find(',')+1:] 
-                    a[tr] = [p.name, '%gx%g ' % img.shape[2:], numb[:4], numb[4]]
-                    tr += 1
-                    
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
@@ -214,7 +215,43 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     
         
-    df = a
+    l = 0
+    for i in range(ds)
+        truedet = str(a[i][2])
+        da = [0] * 5
+        for i in range(da):
+             da[i] = [0] * len(a[i][2]/5)
+        fi = 0
+        u = 0
+        while len(truedet) != 0:
+            for i in range(5):
+                for j in range(len(truedet)-u):
+                   if truedet[j].isdigit():
+                       numb[i] = truedet[j:j+3] 
+                       l += 1
+                       break
+                u = truedet.find(',')
+                truedet = truedet[truedet.find(',')+1:]
+    df = [0]*l
+    for i in range(len(df)):
+        df[i] = [0]*4
+    for i in range(ds)
+        truedet = str(a[i][2])
+        da = [0] * 5
+        for i in range(da):
+             da[i] = [0] * len(a[i][2]/5)
+        fi = 0
+        u = 0
+        while len(truedet) != 0:
+            for i in range(5):
+                for j in range(len(truedet)-u):
+                   if truedet[j].isdigit():
+                       numb[i] = truedet[j:j+3] 
+                       l += 1
+                       break
+                df[l][2] = numb
+                u = truedet.find(',')
+                truedet = truedet[truedet.find(',')+1:]   
     df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
