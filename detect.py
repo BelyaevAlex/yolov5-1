@@ -138,7 +138,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(names[int(c)], ' ')
                 print(s, ' ')
                 print(n, ' ')
-                print(p, s)
+                print(path)
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
