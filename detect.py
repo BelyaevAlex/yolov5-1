@@ -8,7 +8,7 @@ import argparse
 import sys
 import time
 from pathlib import Path
-from pandas import pd
+import pandas as pd
 
 import cv2
 import torch
