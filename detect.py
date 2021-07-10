@@ -137,6 +137,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print("\n")
                 print(names[int(c)], ' ')
                 print(s, ' ')
+                print(imc)
+                print(gn)
                 
 
                 # Write results
