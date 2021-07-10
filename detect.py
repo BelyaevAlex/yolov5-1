@@ -143,8 +143,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(img.shape)
                 print(reversed(det))
                 print(names[int(c)])
-                for numb in range(len(reversed(det))):
-                    df[numb][0] = names[int(c)]
+                print(len(dataset))
+                
                     
 
                 # Write results
