@@ -211,9 +211,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     za = 0
     for i in range(q):
         for j in range(q-1):
-            if i + z <= e:
+            if i + za <= e:
                 y = j
-                z = e
+                za = e
                 break
             e += len(a[j+1][2])
         df[i][0] = a[y][0]
