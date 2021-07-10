@@ -25,8 +25,9 @@ from utils.plots import colors, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 nosicf = 0 #number of string in csv file
-df = pd.Series()
-
+a = ['0'] * len(dataset)
+for i in range(len(dataset)):
+    a[i] = ['0'] * 4
 @torch.no_grad()
 def run(weights='yolov5s.pt',  # model.pt path(s)
         source='data/images',  # file/dir/URL/glob, 0 for webcam
@@ -142,7 +143,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print('%gx%g ' % img.shape[2:], ' ') #размер
                 print(img.shape)
                 print(reversed(det))
-                print(names[int(c)])
+                print(p.name)
                 print(len(dataset))
                 
                     
