@@ -201,7 +201,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     vid_writer[i].write(im0)
     
     q = 10  
-    for i in range(ds):
+    for i in range(len(dataset)):
         q += len(a[i][2])
     df = ['0']*q
     for i in range(q):
