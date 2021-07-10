@@ -148,7 +148,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(reversed(det))
                 print(p.name)
                 print(ds)
-                
+                a[nosicf] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)[:4], reversed(det)[4:5]]
                     
 
                 # Write results
