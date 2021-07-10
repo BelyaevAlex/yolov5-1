@@ -99,7 +99,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     a = ['0'] * ds
     for i in range(ds):
         a[i] = ['0'] * 4
-    for path, img, im0s, vid_cap in dataset:
+    for tr, path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -149,7 +149,6 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(p.name)
                 print(ds)
                 a[tr] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)[:4], reversed(det)[4:5]]
-                tr += 1
                     
 
                 # Write results
