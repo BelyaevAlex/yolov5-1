@@ -207,29 +207,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         strip_optimizer(weights)  # update model (to fix SourceChangeWarning)
 
     print(f'Done. ({time.time() - t0:.3f}s)')
-a = a
-q = 10  
-for i in range(ds):
-    q += len(a[i][2])
-df = ['0']*q
-for i in range(q):
-    df[i] = ['0'] * 4
-e = 0
-y = 0
-for i in range(q):
-    for j in range(q):
-        e += len(a[j][2])
-        if i <= e:
-            y = j
-            break
-    df[i][0] = a[y][0]
-    df[i][1] = a[y][1]
-    df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
-    df[i][3] = a[y][3]
-    df = a[0][2]
-g = [len(df), q, ds]
-g = pd.Series(g)
-g.to_csv('out.csv', index=False)
+
 
 def parse_opt():
     parser = argparse.ArgumentParser()
