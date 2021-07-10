@@ -208,17 +208,21 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         df[i] = ['0'] * 4
     e = len(a[0][2])
     y = 0
-    za = 0
+    o = 0
     for i in range(q):
         for j in range(q-1):
-            if i + za <= e:
+            if i < e:
                 y = j
-                za = e
+                o = 1
                 break
+             if o = 0:
+                y = j
+             else:
+                o = 0
             e += len(a[j+1][2])
         df[i][0] = a[y][0]
         df[i][1] = a[y][1]
-        df[i][2] = a[y][2][len(a[y][2])-(e-i)-1+za]
+        df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
         df[i][3] = a[y][3]
     df = pd.Series(df)
     df.to_csv('out.csv', index=False)
