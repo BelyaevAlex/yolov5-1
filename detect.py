@@ -142,7 +142,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
-                        print("\n"conf)
+                        print("\n")
+                        print(conf)
 
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
