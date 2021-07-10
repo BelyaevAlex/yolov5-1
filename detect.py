@@ -149,6 +149,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(p.name)
                 print(ds)
                 a[nosicf] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)[:4], reversed(det)[4:5]]
+                nosicf += 1
                     
 
                 # Write results
@@ -209,7 +210,22 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
 
 q = 0    
 for i in range(ds):
-    q += len(a[i][3])
+    q += len(a[i][2])
+df = ['0']*q
+for i in range(q):
+    df[i] = ['0'] * 4
+e = 0
+y = 0
+for i in range(q):
+    for j in range(q):
+        e += len(a[j][2])
+        if i <= e:
+            y = j
+            break
+    df[i][0] = a[y][0]
+    df[i][1] = a[y][1]
+    df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
+    df[i][3] = a[y][3]
 print(q)
 
 def parse_opt():
