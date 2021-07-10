@@ -213,7 +213,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         truedet = str(a[i][2])
         fi = 0
         u = 0
-        while len(truedet) != 0:
+        while len(truedet) >= 0:
             for i in range(5):
                 for j in range(len(truedet)-u):
                    if truedet[j].isdigit():
@@ -229,7 +229,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         truedet = str(a[i][2])
         fi = 0
         u = 0
-        while len(truedet) != 0:
+        while len(truedet) >= 0:
             for i in range(5):
                 for j in range(len(truedet)-u):
                    if truedet[j].isdigit():
