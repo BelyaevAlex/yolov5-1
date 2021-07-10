@@ -218,11 +218,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         df[i][1] = a[y][1]
         df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
         df[i][3] = a[y][3]
-        df = a[0][2]
-    g = [len(df), q, ds]
-    g = pd.Series(g)
-    g.to_csv('out.csv', index=False)
-    a.to_csv('out.csv', index=False)
+    df = pd.Series(df)
+    df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         print(f"Results saved to {save_dir}{s}")
