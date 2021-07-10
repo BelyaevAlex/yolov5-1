@@ -207,6 +207,10 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
+q = 0    
+for i in range(ds):
+    q += len(a[i][3])
+print(q)
 
 def parse_opt():
     parser = argparse.ArgumentParser()
