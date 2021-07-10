@@ -213,6 +213,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     
         
+    df = a
     df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
