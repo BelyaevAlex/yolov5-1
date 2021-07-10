@@ -151,7 +151,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(ds)
                 truedet = str(reversed(det))
                 da = [0] * 5
-                for i in range(da):
+                for i in range(len(da)):
                      da[i] = [0] * len(reversed(det)/5)
                 fi = 0
                 u = 0
