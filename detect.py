@@ -138,7 +138,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(names[int(c)], ' ')
                 print(s, ' ')
                 print(n, ' ')
-                
+                print(xyxy, imc, names )
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
@@ -148,7 +148,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                         
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
-                print(reversed(det))
+                
                         
 
                     if save_img or save_crop or view_img:  # Add bbox to image
