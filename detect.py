@@ -139,6 +139,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(s, ' ')
                 print(imc)
                 print(gn)
+                print('%gx%g ' % img.shape[2:])
+                print(im0.shape)
                 
 
                 # Write results
