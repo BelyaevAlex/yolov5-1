@@ -226,7 +226,8 @@ for i in range(q):
     df[i][1] = a[y][1]
     df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
     df[i][3] = a[y][3]
-print(q)
+df = pd.Series(df)
+df.to_csv(index=False)
 
 def parse_opt():
     parser = argparse.ArgumentParser()
