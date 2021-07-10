@@ -98,7 +98,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     ds = len(dataset)
     a = ['0'] * ds
     for i in range(ds):
-        a[i] = ['0'] * 4
+        a[i] = ['0'] * 3
     tr = 0
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -150,7 +150,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(p.name)
                 print(ds)
                 truedet = list(reversed(det))
-                a[tr] = [p.name, '%gx%g ' % img.shape[2:], truedet[:4], truedet[4:5]]
+                a[tr] = [p.name, '%gx%g ' % img.shape[2:], truedet]
                 tr += 1
                     
 
@@ -201,31 +201,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                         vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer[i].write(im0)
     
-    q = 10  
-    for i in range(len(dataset)):
-        q += len(a[i][2])
-    df = ['0']*q
-    for i in range(q):
-        df[i] = ['0'] * 4
-    e = len(a[0][2])
-    y = 0
-    o = 0
-    for i in range(q):
-        for j in range(q-1):
-            if i < e:
-                y = j
-                o = 1
-                break
-            e += len(a[j+1][2])
-        if o == 0:
-            y = j
-        else:
-            o = 0
-        df[i][0] = a[y][0]
-        df[i][1] = a[y][1]
-        df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
-        df[i][3] = a[y][3]
-    df = pd.Series(df)
+    
+        
+    df = pd.Series(a)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
