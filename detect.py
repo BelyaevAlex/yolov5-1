@@ -211,7 +211,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     for i in range(ds):
         truedet = str(a[i][2])
         da = [0] * 5
-        for i in range(da):
+        for i in range(len(da)):
              da[i] = [0] * len(a[i][2]/5)
         fi = 0
         u = 0
@@ -227,7 +227,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     df = [0]*l
     for i in range(len(df)):
         df[i] = [0]*4
-    for i in range(ds):
+    for i in range(len(ds)):
         truedet = str(a[i][2])
         da = [0] * 5
         for i in range(da):
