@@ -98,7 +98,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     ds = len(dataset)
     a = ['0'] * ds
     for i in range(ds):
-        a[i] = ['0'] * 4
+        a[i] = ['0'] * 5
     tr = 0
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -160,7 +160,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                             break
                     u = truedet.find(',')
                     truedet = truedet[truedet.find(','):] 
-                a[tr] = [p.name, '%gx%g ' % img.shape[2:], numb[:3], numb[4]]
+                a[tr] = [p.name, '%gx%g ' % img.shape[2:], numb[:4], numb[4]]
                 tr += 1
                     
 
