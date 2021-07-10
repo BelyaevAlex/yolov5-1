@@ -156,7 +156,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 for i in range(5):
                     for j in range(len(truedet)-u+1):
                         if truedet[j].isdigit():
-                            numb[i] = truedet[j:j+2]
+                            numb[i] = truedet[j:j+3]
                             break
                     u = truedet.find(',')
                     truedet = truedet[truedet.find(','):] 
