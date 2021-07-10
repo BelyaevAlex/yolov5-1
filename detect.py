@@ -25,9 +25,7 @@ from utils.plots import colors, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 nosicf = 0 #number of string in csv file
-a = ['0'] * len(dataset)
-for i in range(len(dataset)):
-    a[i] = ['0'] * 4
+
 ds = 0
 @torch.no_grad()
 def run(weights='yolov5s.pt',  # model.pt path(s)
@@ -98,6 +96,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     t0 = time.time()
     ds = len(dataset)
+    a = ['0'] * ds
+    for i in range(ds):
+        a[i] = ['0'] * 4
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
