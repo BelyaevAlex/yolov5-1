@@ -215,11 +215,11 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 y = j
                 o = 1
                 break
-             if o = 0:
-                y = j
-             else:
-                o = 0
             e += len(a[j+1][2])
+        if o == 0:
+            y = j
+        else:
+            o = 0
         df[i][0] = a[y][0]
         df[i][1] = a[y][1]
         df[i][2] = a[y][2][len(a[y][2])-(e-i)-1]
