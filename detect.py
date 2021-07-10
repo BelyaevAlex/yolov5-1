@@ -98,7 +98,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     ds = len(dataset)
     a = ['0'] * ds
     for i in range(ds):
-        a[i] = ['0'] * 3
+        a[i] = ['0'] * 4
     tr = 0
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -149,8 +149,16 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(reversed(det))
                 print(p.name)
                 print(ds)
-                truedet = list(reversed(det))
-                a[tr] = [p.name, '%gx%g ' % img.shape[2:], truedet]
+                truedet = str(reversed(det))
+                numb = [0] * 5
+                fi = 0
+                for i in range(5):
+                    for j in range(len(truedet)):
+                        if truedet[j+fi].isdigit():
+                            numb[i] = truedet[j+fi:j+fi+2]
+                            break
+                    fi = truedet.find(',', [fi],[len(truedet]) 
+                a[tr] = [p.name, '%gx%g ' % img.shape[2:], numb[:4], numb[5]]
                 tr += 1
                     
 
@@ -203,7 +211,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     
         
-    df = pd.Series(a)
+    df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
