@@ -149,9 +149,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(reversed(det))
                 print(p.name)
                 print(ds)
-                truedet = reversed(det)
-                truedet = str(reversed(det))[7:-1]
-                truedet = list(truedet)
+                truedet = list(reversed(det))
                 a[tr] = [p.name, '%gx%g ' % img.shape[2:], truedet[:4], truedet[4:5]]
                 tr += 1
                     
