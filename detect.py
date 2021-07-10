@@ -24,7 +24,7 @@ from utils.general import check_img_size, check_requirements, check_imshow, colo
 from utils.plots import colors, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
-nosicf = 0 #number of string in csv file
+tr = 0 #number of string in csv file
 
 ds = 0
 @torch.no_grad()
@@ -148,8 +148,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 print(reversed(det))
                 print(p.name)
                 print(ds)
-                a[nosicf] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)[:4], reversed(det)[4:5]]
-                nosicf += 1
+                a[tr] = [p.name, '%gx%g ' % img.shape[2:], reversed(det)[:4], reversed(det)[4:5]]
+                tr += 1
                     
 
                 # Write results
