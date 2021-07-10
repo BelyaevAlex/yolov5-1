@@ -136,8 +136,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 print("\n")
                 print(gn, ' ')
-                print('%gx%g ' % img.shape[2:], ' ')
-                print(im0.shape)
+                print('%gx%g ' % img.shape[2:], ' ') #размер
+                print(img.shape)
+                print(reversed(det))
                 
 
                 # Write results
