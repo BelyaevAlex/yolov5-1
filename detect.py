@@ -209,8 +209,20 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     numb = [0] * 5    
    
     l = 0
-      
-    df = pd.Series(a)
+    for i in range(ds):
+        a[i][2] = str(a[i][2])[7:]
+        for j in range(a[i][2].count(']')-1):
+            for k in range(5):
+                for m in range(len(a[i][2])-u):
+                   if a[i][2][m].isdigit():
+                       numb[k] = a[i][2][m:m+3] 
+                       l += 1
+                       break
+                u = truedet.find(',')
+                truedet = truedet[truedet.find(',')+1:]
+            a[i][2] = a[i][2][:a[i][2].find(']')]
+            
+    df = pd.Series(numb)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
