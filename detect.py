@@ -236,9 +236,6 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
             score += 1
     numb = [0] * 5
     l = 0
-    ndf = [0]*score
-    for i in range(score):
-        ndf[i] = [0] * 7
     sscore = 0
     for i in range(ds):
         a[i][2] = str(a[i][2])[7:]
