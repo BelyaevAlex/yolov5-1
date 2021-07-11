@@ -223,7 +223,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 u = 0
                 for m in range(len(a[i][2])-u):
                    if a[i][2][m].isdigit():
-                       if a[i][2][m] == 0:
+                       if a[i][2][m] == 0 or a[i][2][m+3] == '.':
                           numb[k] = a[i][2][m:m+4] 
                           l += 1
                           break
