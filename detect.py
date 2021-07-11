@@ -208,11 +208,25 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     fa = [0] * 5
     score = 0
+    
     for i in range(ds):
         fa[i] = a[i][2].numpy()
-        
-    
-    df = pd.Series(fa[0][0])
+        score += len(fa[i])
+    v = 0
+    d = len(fa[0])
+    c = 1
+    df = [0] * score
+    for i in range(score):
+        df[i] = [0] * 7
+    for i in range(score):
+        if i > d:
+            d += len(fa[c])
+            c += 1
+            v += 1
+            df[i] = [a[v][0], a[v][1], fa[v][i - v][0], fa[v][i - v][1], fa[v][i - v][2], fa[v][i - v][3], fa[v][i - v][4]]
+        else:
+            df[i] = [a[v][0], a[v][1], fa[v][i - v][0], fa[v][i - v][1], fa[v][i - v][2], fa[v][i - v][3], fa[v][i - v][4]]
+    df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
