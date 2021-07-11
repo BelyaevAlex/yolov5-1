@@ -210,6 +210,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     numbq = [0] * 5
     l = 0
     score = 0
+    ndf = [0]*26
+    for i in range(26):
+        ndf[i] = [0] * 7
     for i in range(ds):
         fa[i][2] = str(fa[i][2])[7:]
         for j in range(fa[i][2].count(']')-1):
@@ -222,6 +225,13 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        break
                 u = fa[i][2].find(',')
                 fa[i][2] = fa[i][2][fa[i][2].find(',')+1:]
+            ndf[sscore][0] = a[i][0]
+            ndf[sscore][1] = a[i][1]
+            ndf[sscore][2] = numb[0]
+            ndf[sscore][3] = numb[1]
+            ndf[sscore][4] = numb[2]
+            ndf[sscore][5] = numb[3]
+            ndf[sscore][6] = numb[4]
             fa[i][2] = fa[i][2][fa[i][2].find(']')+2:]
             score += 1
     numb = [0] * 5
@@ -242,18 +252,11 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        break
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
-            ndf[sscore][0] = a[i][0]
-            ndf[sscore][1] = a[i][1]
-            ndf[sscore][2] = numb[0]
-            ndf[sscore][3] = numb[1]
-            ndf[sscore][4] = numb[2]
-            ndf[sscore][5] = numb[3]
-            ndf[sscore][6] = numb[4]
-            sscore += 1
+            
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
             
             
-    df = pd.Series(numb)
+    df = pd.Series(ndf)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
