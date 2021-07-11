@@ -207,8 +207,12 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     
     numb = [0] * 5    
-   
+    score = a.count(']')-ds
     l = 0
+    df = [0]*score
+    for i in range(score):
+        df[i] = [0] * 7
+    sscore
     for i in range(ds):
         a[i][2] = str(a[i][2])[7:]
         for j in range(a[i][2].count(']')-1):
@@ -222,8 +226,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
+            df[sscore] = [a[i][0], a[i][1], numb[0], numb[1], numb[2], numb[3], numb[4]]
             
-    df = pd.Series(numb)
+    df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
