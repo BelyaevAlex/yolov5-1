@@ -209,6 +209,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     fa = a
     score = 0
     for i in range(ds):
+        a[i][2] = str(a[i][2])[7:]
         score += a[i][2].count(']')-1
     numb = [0] * 5
     l = 0
@@ -217,7 +218,6 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     for i in range(score):
         ndf[i] = [0] * 7
     for i in range(ds):
-        a[i][2] = str(a[i][2])[7:]
         for j in range(a[i][2].count(']')-1):
             for k in range(5):
                 u = 0
