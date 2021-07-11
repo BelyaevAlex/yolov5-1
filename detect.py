@@ -242,7 +242,13 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        break
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
-            df[sscore] = [a[i][0], a[i][1], numb]
+            df[sscore][0] = a[i][0]
+            df[sscore][1] = a[i][1]
+            df[sscore][2] = numb[0]
+            df[sscore][3] = numb[1]
+            df[sscore][4] = numb[2]
+            df[sscore][5] = numb[3]
+            df[sscore][6] = numb[4]
             sscore += 1
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
             
