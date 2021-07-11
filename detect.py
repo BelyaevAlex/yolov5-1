@@ -212,7 +212,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     df = [0]*score
     for i in range(score):
         df[i] = [0] * 7
-    sscore
+    sscore = 0
     for i in range(ds):
         a[i][2] = str(a[i][2])[7:]
         for j in range(a[i][2].count(']')-1):
@@ -227,6 +227,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
             df[sscore] = [a[i][0], a[i][1], numb[0], numb[1], numb[2], numb[3], numb[4]]
+            sscore += 1
             
     df = pd.Series(df)
     df.to_csv('out.csv', index=False)
