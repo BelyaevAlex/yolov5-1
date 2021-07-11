@@ -209,7 +209,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     fa = a
     score = 0
     for i in range(ds):
-        a[i][2] = a[i][2]).numpy()
+        a[i][2] = a[i][2].numpy()
         
             
             
