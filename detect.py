@@ -209,42 +209,11 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     fa = a
     score = 0
     for i in range(ds):
-        a[i][2] = str(a[i][2])[7:]
-        score += a[i][2].count(']')-1
-    numb = [0] * 5
-    l = 0
-    sscore = 0
-    ndf = [0]*score
-    for i in range(score):
-        ndf[i] = [0] * 7
-    for i in range(ds):
-        for j in range(a[i][2].count(']')-1):
-            for k in range(5):
-                u = 0
-                for m in range(len(a[i][2])-u):
-                   if a[i][2][m].isdigit():
-                       if a[i][2][m] == 0 or a[i][2][m+2] == '.':
-                          numb[k] = a[i][2][m:m+4] 
-                          l += 1
-                          break
-                       else :
-                          numb[k] = a[i][2][m:m+3] 
-                          l += 1
-                          break
-                u = a[i][2].find(',')
-                a[i][2] = a[i][2][a[i][2].find(',')+1:]
-            ndf[sscore][0] = a[i][0]
-            ndf[sscore][1] = a[i][1]
-            ndf[sscore][2] = numb[0]
-            ndf[sscore][3] = numb[1]
-            ndf[sscore][4] = numb[2]
-            ndf[sscore][5] = numb[3]
-            ndf[sscore][6] = numb[4]
-            sscore += 1
-            a[i][2] = a[i][2][a[i][2].find(']')+2:]
+        a[i][2] = a[i][2]).numpy()
+        
             
             
-    df = pd.Series(ndf)
+    df = pd.Series(a[0][2])
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
