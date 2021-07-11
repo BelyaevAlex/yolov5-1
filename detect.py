@@ -209,36 +209,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     numb = [0] * 5    
    
     l = 0
-    for i in range(ds):
-        truedet = str(a[i][2])
-        fi = 0
-        u = 0
-        while len(truedet) >= 0:
-            for i in range(5):
-                for j in range(len(truedet)-u):
-                   if truedet[j].isdigit():
-                       numb[i] = truedet[j:j+3] 
-                       l += 1
-                       break
-                u = truedet.find(',')
-                truedet = truedet[truedet.find(',')+1:]
-    df = [0]*l
-    for i in range(len(df)):
-        df[i] = [0]*4
-    for i in range(len(ds)):
-        truedet = str(a[i][2])
-        fi = 0
-        u = 0
-        while len(truedet) >= 0:
-            for i in range(5):
-                for j in range(len(truedet)-u):
-                   if truedet[j].isdigit():
-                       numb[i] = truedet[j:j+3] 
-                       l += 1
-                       break
-                df[l][2] = numb
-                u = truedet.find(',')
-                truedet = truedet[truedet.find(',')+1:]   
+      
     df = pd.Series(a)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
