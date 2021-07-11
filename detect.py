@@ -206,14 +206,13 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     vid_writer[i].write(im0)
     
     
-    fa = a
+    fa = [0] * 5
     score = 0
     for i in range(ds):
-        a[i][2] = a[i][2].numpy()
+        fa[i] = a[i][2].numpy()
         
-            
-            
-    df = pd.Series(a)
+    
+    df = pd.Series(fa[0][0])
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
