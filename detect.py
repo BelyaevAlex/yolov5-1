@@ -217,7 +217,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     c = 1
     df = [0] * score
     for i in range(score):
-        df[i] = [0] * 7
+        df[i] = [0] * 8
     for i in range(score):
         if i > d:
             d += len(fa[c])
