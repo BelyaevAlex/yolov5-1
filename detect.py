@@ -218,8 +218,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        numb[k] = a[i][2][m:m+3] 
                        l += 1
                        break
-                u = truedet.find(',')
-                truedet = truedet[truedet.find(',')+1:]
+                u = a[i][2].find(',')
+                a[i][2] = a[i][2][a[i][2].find(',')+1:]
             a[i][2] = a[i][2][:a[i][2].find(']')]
             
     df = pd.Series(numb)
