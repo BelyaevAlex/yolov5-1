@@ -213,12 +213,13 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         a[i][2] = str(a[i][2])[7:]
         for j in range(a[i][2].count(']')-1):
             for k in range(5):
+                u = 0
                 for m in range(len(a[i][2])-u):
                    if a[i][2][m].isdigit():
                        numb[k] = a[i][2][m:m+3] 
                        l += 1
                        break
-                u += a[i][2].find(',')
+                u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
             a[i][2] = a[i][2][a[i][2].find(']')+1:]
             
