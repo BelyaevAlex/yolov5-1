@@ -220,7 +220,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        break
                 u += a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
-            a[i][2] = a[i][2][:a[i][2].find(']')]
+            a[i][2] = a[i][2][a[i][2].find(']')+1:]
             
     df = pd.Series(numb)
     df.to_csv('out.csv', index=False)
