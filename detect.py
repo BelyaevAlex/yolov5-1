@@ -223,9 +223,9 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
             d += len(fa[c])
             c += 1
             v += 1
-            
+            df[i] = [a[v][0], a[v][1], fa[v][i - d][0], fa[v][i - d][1], fa[v][i - d][2], fa[v][i - d][3], fa[v][i - d][4]]
         else:
-            pass
+            df[i] = [a[v][0], a[v][1], fa[v][i - d][0], fa[v][i - d][1], fa[v][i - d][2], fa[v][i - d][3], fa[v][i - d][4]]
     df = pd.Series(df)
     df.to_csv('out.csv', index=False)
     if save_txt or save_img:
