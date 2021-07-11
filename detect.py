@@ -207,36 +207,15 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
     
     
     fa = a
-    numbq = [0] * 5
-    l = 0
     score = 0
-    ndf = [0]*26
-    for i in range(26):
-        ndf[i] = [0] * 7
     for i in range(ds):
-        fa[i][2] = str(fa[i][2])[7:]
-        for j in range(fa[i][2].count(']')-1):
-            for k in range(5):
-                u = 0
-                for m in range(len(fa[i][2])-u):
-                   if fa[i][2][m].isdigit():
-                       numbq[k] = fa[i][2][m:m+3] 
-                       l += 1
-                       break
-                u = fa[i][2].find(',')
-                fa[i][2] = fa[i][2][fa[i][2].find(',')+1:]
-            ndf[score][0] = a[i][0]
-            ndf[score][1] = a[i][1]
-            ndf[score][2] = numbq[0]
-            ndf[score][3] = numbq[1]
-            ndf[score][4] = numbq[2]
-            ndf[score][5] = numbq[3]
-            ndf[score][6] = numbq[4]
-            fa[i][2] = fa[i][2][fa[i][2].find(']')+2:]
-            score += 1
+        score += a[i][2].count(']')-1
     numb = [0] * 5
     l = 0
     sscore = 0
+    ndf = [0]*score
+    for i in range(score):
+        ndf[i] = [0] * 7
     for i in range(ds):
         a[i][2] = str(a[i][2])[7:]
         for j in range(a[i][2].count(']')-1):
@@ -249,7 +228,14 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                        break
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
-            
+            ndf[sscore][0] = a[i][0]
+            ndf[sscore][1] = a[i][1]
+            ndf[sscore][2] = numb[0]
+            ndf[sscore][3] = numb[1]
+            ndf[sscore][4] = numb[2]
+            ndf[sscore][5] = numb[3]
+            ndf[sscore][6] = numb[4]
+            sscore += 1
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
             
             
