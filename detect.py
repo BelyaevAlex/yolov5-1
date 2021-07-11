@@ -206,8 +206,24 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     vid_writer[i].write(im0)
     
     
-    numb = [0] * 5    
-    score = a.count(']')-ds
+    fa = a
+    numb = [0] * 5
+    l = 0
+    for i in range(ds):
+        fa[i][2] = str(fa[i][2])[7:]
+        for j in range(fa[i][2].count(']')-1):
+            for k in range(5):
+                u = 0
+                for m in range(len(fa[i][2])-u):
+                   if fa[i][2][m].isdigit():
+                       numb[k] = fa[i][2][m:m+3] 
+                       l += 1
+                       break
+                u = fa[i][2].find(',')
+                fa[i][2] = fa[i][2][fa[i][2].find(',')+1:]
+            fa[i][2] = fa[i][2][fa[i][2].find(']')+2:]
+            score += 1
+    numb = [0] * 5
     l = 0
     df = [0]*score
     for i in range(score):
@@ -226,7 +242,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
             a[i][2] = a[i][2][a[i][2].find(']')+2:]
-            
+            df[sscore] = [a[i][0], a[i][0], numb[0], numb[1], numb[2], numb[3], numb[4]]
             sscore += 1
             
     df = pd.Series([sscore, score])
