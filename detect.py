@@ -223,9 +223,14 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 u = 0
                 for m in range(len(a[i][2])-u):
                    if a[i][2][m].isdigit():
-                       numb[k] = a[i][2][m:m+3] 
-                       l += 1
-                       break
+                       if a[i][2][m] == 0:
+                          numb[k] = a[i][2][m:m+4] 
+                          l += 1
+                          break
+                       else :
+                          numb[k] = a[i][2][m:m+3] 
+                          l += 1
+                          break
                 u = a[i][2].find(',')
                 a[i][2] = a[i][2][a[i][2].find(',')+1:]
             ndf[sscore][0] = a[i][0]
