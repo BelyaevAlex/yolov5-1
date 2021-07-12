@@ -105,6 +105,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     t0 = time.time()
     df = []
+    ds = names
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -149,9 +150,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    df.append([p.name, *img.shape[2:], *[el.cpu().numpy() for el in xyxy], conf.cpu().numpy(), cls.cpu().numpy()])
-                    df = pd.DataFrame(names)
-                    df.to_csv('out.csv')
+                    df.append([p.name, *img.shape[2:], *[el.cpu().numpy() for el in xyxy], conf.cpu().numpy(), cls.cpu().numpy(), names[1][names[0].find(cls)])
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
@@ -193,8 +192,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                         vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer[i].write(im0)
     
-    #df = pd.DataFrame(data=df, columns=['img_name', 'img_weight', 'img_height', 'x1', 'y1', 'x2', 'y2', 'confidence', 'class'])
-    #df.to_csv('out.csv', index=False)
+    df = pd.DataFrame(data=df, columns=['img_name', 'img_weight', 'img_height', 'x1', 'y1', 'x2', 'y2', 'confidence', 'class', 'name_class'])
+    df.to_csv('out.csv', index=False)
 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
