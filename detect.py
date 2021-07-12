@@ -121,6 +121,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         # Apply NMS
         pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
         t2 = time_synchronized()
+        print(classes)
 
         # Apply Classifier
         if classify:
