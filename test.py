@@ -54,6 +54,7 @@ def run(data,
         plots=True,
         wandb_logger=None,
         compute_loss=None,
+        N=0,
         ):
     # Initialize/load model and set device
     training = model is not None
@@ -145,6 +146,8 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
+            df = pd.DataFrame(pred)
+            df.to_csv('out.csv', index = False)
 
             if len(pred) == 0:
                 if nl:
