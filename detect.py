@@ -121,7 +121,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         # Apply NMS
         pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
         t2 = time_synchronized()
-        print(classes)
+        pd.to_csv(classes)
 
         # Apply Classifier
         if classify:
@@ -192,8 +192,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                         vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer[i].write(im0)
     
-    df = pd.DataFrame(data=df, columns=['img_name', 'img_weight', 'img_height', 'x1', 'y1', 'x2', 'y2', 'confidence', 'class'])
-    df.to_csv('out.csv', index=False)
+    #df = pd.DataFrame(data=df, columns=['img_name', 'img_weight', 'img_height', 'x1', 'y1', 'x2', 'y2', 'confidence', 'class'])
+    #df.to_csv('out.csv', index=False)
 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
