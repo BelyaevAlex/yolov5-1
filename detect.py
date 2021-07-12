@@ -121,8 +121,6 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         # Apply NMS
         pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
         t2 = time_synchronized()
-        df = pd.DataFrame(classes)
-        df.to_csv('out.csv')
 
         # Apply Classifier
         if classify:
@@ -152,6 +150,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
                     df.append([p.name, *img.shape[2:], *[el.cpu().numpy() for el in xyxy], conf.cpu().numpy(), cls.cpu().numpy()])
+                    df = pd.DataFrame(names)
+                    df.to_csv('out.csv')
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
