@@ -151,7 +151,7 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    df.append([p.name, [np.uint16(el) for el in img.shape[2:]], *[np.uint16(el.cpu().numpy()) for el in xyxy], conf.cpu().numpy(), np.uint16(cls.cpu().numpy()), names[int(cls)]])
+                    df.append([p.name, *[np.uint16(el) for el in img.shape[2:]], *[np.uint16(el.cpu().numpy()) for el in xyxy], conf.cpu().numpy(), np.uint16(cls.cpu().numpy()), names[int(cls)]])
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
