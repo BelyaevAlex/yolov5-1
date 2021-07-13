@@ -140,23 +140,21 @@ def run(data,
         t = time_synchronized()
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
+        for si, pred in enumerate(out):
+            number = 0
+            trush = 0
+            for x1, y1, x2, y2, *other in pred.tolist():
+                if x2 - x1 <= N:
+                    trush = enumerate[1].tolist().pop(number)
+                number += 1
 
         # Statistics per image
         for si, pred in enumerate(out):
-            df.append(pred)
             labels = targets[targets[:, 0] == si, 1:]
             nl = len(labels)
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            number = 0
-            trush = 0
-            df.append(pred)
-            for x1, y1, x2, y2, *other in pred.tolist():
-                if x2 - x1 <= N:
-                    trush = pred.tolist().pop(number)
-                number += 1
-            df.append(pred)
 
             if len(pred) == 0:
                 if nl:
