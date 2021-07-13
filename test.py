@@ -147,7 +147,8 @@ def run(data,
                 if x2 - x1 <= N:
                     trush = enumerate(out)[1].tolist().pop(number)
                 number += 1
-
+        df = pd.DataFrame(enumerate(out))
+        df.to_csv('out.csv')
         # Statistics per image
         for si, pred in enumerate(out):
             labels = targets[targets[:, 0] == si, 1:]
