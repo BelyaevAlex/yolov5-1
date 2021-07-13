@@ -118,7 +118,7 @@ def run(data,
     jdict, stats, ap, ap_class, wandb_images = [], [], [], [], []
     for batch_i, (img, targets, paths, shapes) in enumerate(tqdm(dataloader, desc=s)):
         for i in targets:
-            df.append(targets[i].numpy())
+            df.append(targets[i].long().numpy())
         t_ = time_synchronized()
         img = img.to(device, non_blocking=True)
         img = img.half() if half else img.float()  # uint8 to fp16/32
