@@ -145,7 +145,7 @@ def run(data,
             for pred in out[i]:
                 trush = 0
                 number = 0
-                for x1, y1, x2, y2, *other in pred.tolist():
+                for x1, y1, x2, y2, *other in pred.numpy():
                     if x2 - x1 <= N:
                         trush = out[numb].tolist().pop(number)
                         number -= 1
