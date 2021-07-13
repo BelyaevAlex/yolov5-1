@@ -147,9 +147,9 @@ def run(data,
             for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
                     trush = out[numb].tolist().pop(number)
-                    numb -= 1
+                    number -= 1
                 number += 1
-                numb += 1
+            numb += 1
         df = pd.DataFrame(out[1].tolist())
         df.to_csv('out.csv')
         # Statistics per image
