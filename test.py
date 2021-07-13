@@ -140,13 +140,7 @@ def run(data,
         t = time_synchronized()
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
-        for si, pred in enumerate(out):
-            number = 0
-            trush = 0
-            for x1, y1, x2, y2, *other in pred.tolist():
-                if x2 - x1 <= N:
-                    trush = enumerate(out)[1].tolist().pop(number)
-                number += 1
+        
         df = pd.DataFrame(enumerate(out))
         df.to_csv('out.csv')
         # Statistics per image
