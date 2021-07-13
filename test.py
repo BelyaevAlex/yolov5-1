@@ -150,7 +150,7 @@ def run(data,
                     number -= 1
                 number += 1
             numb += 1
-            df.append(pred)
+            df.append(pred.numpy())
         df = pd.DataFrame(df)
         df.to_csv('out.csv')
         # Statistics per image
