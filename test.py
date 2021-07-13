@@ -150,7 +150,7 @@ def run(data,
             seen += 1
             number = 0
             trush = 0
-            for x1.numpy(), y1.numpy(), x2.numpy(), y2.numpy(), *other in pred.tolist():
+            for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
                     trush = pred.pop(number)
                 number += 1
