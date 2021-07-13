@@ -149,7 +149,7 @@ def run(data,
             path = Path(paths[si])
             seen += 1
             df.append(pd.DataFrame(pred))
-            df.to_csv('out.csv', index = False)
+            pd.DataFrame(df).to_csv('out.csv', index = False)
 
             if len(pred) == 0:
                 if nl:
