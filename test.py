@@ -145,7 +145,7 @@ def run(data,
             trush = 0
             for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
-                    trush = out.pop(number)
+                    trush = out[1].pop(number)
                 number += 1
         df = pd.DataFrame(enumerate(out))
         df.to_csv('out.csv')
