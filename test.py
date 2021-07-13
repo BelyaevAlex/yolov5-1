@@ -147,6 +147,7 @@ def run(data,
             trush = 0
             number = 0
             for j in range(len(list(pred.numpy()))):
+                pred = pred[:6]
                 for x1, y1, x2, y2, *b in pd.DataFrame(pred.numpy())[j]:
                     if x2 - x1 <= N:
                         trush = out[j].tolist().pop(number)
