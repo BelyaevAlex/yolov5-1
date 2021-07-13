@@ -150,6 +150,7 @@ def run(data,
             seen += 1
             number = 0
             trush = 0
+            df.append(pred)
             for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
                     trush = pred.pop(number)
@@ -312,7 +313,8 @@ def run(data,
         maps[c] = ap[i]
     return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
 
-
+df = pd.DataFrame(df)
+df.to_csv('out.csv')
 def parse_opt():
     parser = argparse.ArgumentParser(prog='test.py')
     parser.add_argument('--data', type=str, default='data/coco128.yaml', help='dataset.yaml path')
