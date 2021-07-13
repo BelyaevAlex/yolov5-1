@@ -117,6 +117,7 @@ def run(data,
     loss = torch.zeros(3, device=device)
     jdict, stats, ap, ap_class, wandb_images = [], [], [], [], []
     for batch_i, (img, targets, paths, shapes) in enumerate(tqdm(dataloader, desc=s)):
+        df.append(targets)
         t_ = time_synchronized()
         img = img.to(device, non_blocking=True)
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -143,16 +144,6 @@ def run(data,
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
         numb = 0
-        for si, pred in enumerate(out):
-            trush = 0
-            number = 0
-            for i in range(len(pred)):
-                df.append(pred[i].numpy())
-                for x1, y1, x2, y2, *b in pred[i]:
-                    if x2 - x1 <= N:
-                        trush = out[i].tolist().pop(number)
-                        number -= 1
-                    number += 1
         
         # Statistics per image
         for si, pred in enumerate(out):
