@@ -142,7 +142,7 @@ def run(data,
         t2 += time_synchronized() - t
         numb = 0
         for pred in out:
-            df.append(pred)
+            df.append(pd.DataFrame(pred.numpy()))
             
         df = pd.DataFrame(df)
         df.to_csv('out.csv')
