@@ -143,6 +143,7 @@ def run(data,
 
         # Statistics per image
         for si, pred in enumerate(out):
+            df.append(pred)
             labels = targets[targets[:, 0] == si, 1:]
             nl = len(labels)
             tcls = labels[:, 0].tolist() if nl else []  # target class
@@ -155,7 +156,7 @@ def run(data,
                 if x2 - x1 <= N:
                     trush = pred.tolist().pop(number)
                 number += 1
-            df.append(si)
+            df.append(pred)
 
             if len(pred) == 0:
                 if nl:
