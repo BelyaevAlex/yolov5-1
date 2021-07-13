@@ -141,7 +141,10 @@ def run(data,
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
         numb = 0
-        df = pd.DataFrame(out)
+        for pred in out:
+            df.append(pred)
+            
+        df = pd.DataFrame(df)
         df.to_csv('out.csv')
         
         # Statistics per image
