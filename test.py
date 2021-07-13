@@ -312,9 +312,10 @@ def run(data,
     for i, c in enumerate(ap_class):
         maps[c] = ap[i]
     return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
+    df = pd.DataFrame(df)
+    df.to_csv('out.csv')
 
-df = pd.DataFrame(df)
-df.to_csv('out.csv')
+
 def parse_opt():
     parser = argparse.ArgumentParser(prog='test.py')
     parser.add_argument('--data', type=str, default='data/coco128.yaml', help='dataset.yaml path')
