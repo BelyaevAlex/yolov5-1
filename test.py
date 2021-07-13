@@ -276,7 +276,8 @@ def run(data,
             wandb_logger.log({"Validation": val_batches})
     if wandb_images:
         wandb_logger.log({"Bounding Box Debugger/Images": wandb_images})
-
+    df = pd.DataFrame(df)
+    df.to_csv('out.csv')
     # Save JSON
     if save_json and len(jdict):
         w = Path(weights[0] if isinstance(weights, list) else weights).stem if weights is not None else ''  # weights
@@ -312,8 +313,7 @@ def run(data,
     for i, c in enumerate(ap_class):
         maps[c] = ap[i]
     return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
-    df = pd.DataFrame(df)
-    df.to_csv('out.csv')
+    
 
 
 def parse_opt():
