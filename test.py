@@ -148,7 +148,11 @@ def run(data,
             number = 0
             for i in range(len(pred)):
                 df.append(pred[i].numpy())
-            
+                for x1, y1, x2, y2, *b in pred[i].numpy():
+                    if x2 - x1 <= N:
+                        trush = out[i].tolist().pop(number)
+                        number -= 1
+                    number += 1
         
         # Statistics per image
         for si, pred in enumerate(out):
