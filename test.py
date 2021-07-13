@@ -144,8 +144,7 @@ def run(data,
         for i in range(len(out)):
             trush = 0
             number = 0
-            df.append(pred)
-            for x1, y1, x2, y2, s, b in out[i]:
+            for x1, y1, x2, y2, s, *b in out[i]:
                if x2 - x1 <= N:
                     trush = out[numb].tolist().pop(number)
                     number -= 1
