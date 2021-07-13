@@ -61,7 +61,7 @@ def run(data,
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
-
+    df = []
     else:  # called directly
         device = select_device(device, batch_size=batch_size)
 
@@ -147,7 +147,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            df = pd.DataFrame(pred)
+            df.append(pd.DataFrame(pred))
             df.to_csv('out.csv', index = False)
 
             if len(pred) == 0:
