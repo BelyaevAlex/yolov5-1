@@ -141,10 +141,10 @@ def run(data,
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
         numb = 0
-        for i in range(len(out)):
+        for pred in out:
             trush = 0
             number = 0
-            for x1, y1, x2, y2, s, *b in out[i]:
+            for x1, y1, x2, y2, s, *b in pred:
                if x2 - x1 <= N:
                     trush = out[numb].tolist().pop(number)
                     number -= 1
