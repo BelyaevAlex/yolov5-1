@@ -145,7 +145,7 @@ def run(data,
             trush = 0
             for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
-                    trush = enumerate[1].tolist().pop(number)
+                    trush = enumerate(out)[1].tolist().pop(number)
                 number += 1
 
         # Statistics per image
