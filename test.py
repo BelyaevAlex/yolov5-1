@@ -153,7 +153,7 @@ def run(data,
             df.append(pred)
             for x1, y1, x2, y2, *other in pred.tolist():
                 if x2 - x1 <= N:
-                    trush = pred.pop(number)
+                    trush = pred.tolist().pop(number)
                 number += 1
 
             if len(pred) == 0:
