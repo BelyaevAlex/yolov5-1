@@ -58,10 +58,11 @@ def run(data,
         N=0,
         ):
     # Initialize/load model and set device
+    df = []
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
-    df = []
+    
     else:  # called directly
         device = select_device(device, batch_size=batch_size)
 
