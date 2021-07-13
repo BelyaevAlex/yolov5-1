@@ -142,16 +142,15 @@ def run(data,
         t2 += time_synchronized() - t
         numb = 0
         for i in range(len(out)):
-            for pred in out[i]:
-                trush = 0
-                number = 0
-                df.append(pred.numpy())
-                for x1, y1, x2, y2, s, *b in pred.numpy():
-                   if x2 - x1 <= N:
-                        trush = out[numb].tolist().pop(number)
-                        number -= 1
-                   number += 1
-                   numb += 1
+            trush = 0
+            number = 0
+            df.append(pred.numpy())
+            for x1, y1, x2, y2, s, *b in pred.out[i]:
+               if x2 - x1 <= N:
+                    trush = out[numb].tolist().pop(number)
+                    number -= 1
+               number += 1
+               numb += 1
         # Statistics per image
         for si, pred in enumerate(out):
             labels = targets[targets[:, 0] == si, 1:]
