@@ -141,7 +141,7 @@ def run(data,
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
         numb = 0
-        for pred in out[i]:
+        for pred in out:
             trush = 0
             number = 0
             for x1, y1, x2, y2, s, *b in pred.numpy():
