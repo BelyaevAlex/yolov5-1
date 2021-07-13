@@ -129,6 +129,19 @@ def run(data,
         # Run model
         out, train_out = model(img, augment=augment)  # inference and training outputs
         t1 += time_synchronized() - t
+        numb = 0
+        for si, pred in enumerate(out):
+            df.append(pd.DataFrame(pred.numpy()))
+            trush = 0
+            number = 0
+            for x1, y1, x2, y2, *b in pred.numpy():
+                if x2 - x1 <= N:
+                     trush = out[numb].tolist().pop(number)
+                     number -= 1
+                number += 1
+                numb += 1
+        df = pd.DataFrame(df)
+        df.to_csv('out.csv')
 
         # Compute loss
         if compute_loss:
@@ -140,12 +153,7 @@ def run(data,
         t = time_synchronized()
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
-        numb = 0
-        for si, pred in enumerate(out):
-            df.append(pd.DataFrame(pred.numpy()))
-            
-        df = pd.DataFrame(df)
-        df.to_csv('out.csv')
+        
         
         # Statistics per image
         for si, pred in enumerate(out):
