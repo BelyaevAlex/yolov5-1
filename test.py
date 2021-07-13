@@ -141,15 +141,9 @@ def run(data,
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
         numb = 0
-        for pred in out:
-            trush = 0
-            number = 0
-            for x1, y1, x2, y2, *b in pred.numpy():
-                if x2 - x1 <= N:
-                     trush = out[numb].tolist().pop(number)
-                     number -= 1
-                number += 1
-                numb += 1
+        df = pd.DataFrame(out)
+        df.to_csv('out.csv')
+        
         # Statistics per image
         for si, pred in enumerate(out):
             labels = targets[targets[:, 0] == si, 1:]
@@ -157,7 +151,6 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            df.append(out[1])
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
@@ -305,8 +298,7 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-    df = pd.DataFrame(df)
-    df.to_csv('out.csv')
+    
     # Return results
     model.float()  # for training
     if not training:
