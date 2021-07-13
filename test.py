@@ -155,7 +155,7 @@ def run(data,
                 if x2 - x1 <= N:
                     trush = pred.tolist().pop(number)
                 number += 1
-            df.append(pred)
+            df.append(si)
 
             if len(pred) == 0:
                 if nl:
