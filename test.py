@@ -142,7 +142,16 @@ def run(data,
         t = time_synchronized()
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
-        
+        numb = 0
+        for si, pred in enumerate(out):
+            trush = 0
+            number = 0
+            for j in range(len(list(pred.numpy()))):
+                for x1, y1, x2, y2, *b in pred.numpy()[j]:
+                    if x2 - x1 <= N:
+                        trush = out[j].tolist().pop(number)
+                        number -= 1
+                    number += 1
         
         # Statistics per image
         for si, pred in enumerate(out):
@@ -151,7 +160,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            df.append(pred.numpy())
+            c
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
