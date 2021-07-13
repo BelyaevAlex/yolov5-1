@@ -147,7 +147,7 @@ def run(data,
             trush = 0
             number = 0
             for i in range(len(pred)):
-                df.append(pred[i][j].numpy())
+                df.append(pred[i].numpy())
             
         
         # Statistics per image
