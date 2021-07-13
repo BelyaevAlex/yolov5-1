@@ -150,9 +150,7 @@ def run(data,
                     number -= 1
                 number += 1
             numb += 1
-            df.append(pd.DataFrame(pred.tolist()))
-        df = pd.DataFrame(df)
-        df.to_csv('out.csv')
+       
         # Statistics per image
         for si, pred in enumerate(out):
             labels = targets[targets[:, 0] == si, 1:]
@@ -160,7 +158,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-
+            df.append(pd.DataFrame(pred.tolist()))
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
@@ -308,7 +306,8 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-
+    df = pd.DataFrame(df)
+    df.to_csv('out.csv')
     # Return results
     model.float()  # for training
     if not training:
