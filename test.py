@@ -148,8 +148,12 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            df.append(pd.DataFrame(pred))
-            pd.DataFrame(df).to_csv('out.csv', index = False)
+            number = 0
+            trush = 0
+            for x1.numpy(), y1.numpy(), x2.numpy(), y2.numpy(), *other in pred.tolist():
+                if x2 - x1 <= N:
+                    trush = pred.pop(number)
+                number += 1
 
             if len(pred) == 0:
                 if nl:
