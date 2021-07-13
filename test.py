@@ -148,7 +148,7 @@ def run(data,
             number = 0
             for i in range(len(pred)):
                 df.append(pred[i].numpy())
-                pred[i] = pred[i].numpy().T
+                pred[i] = pd.DataFrame(pred[i]).T
                 for x1, y1, x2, y2, *b in pred[i]:
                     if x2 - x1 <= N:
                         trush = out[i].tolist().pop(number)
