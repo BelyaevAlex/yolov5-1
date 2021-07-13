@@ -129,19 +129,8 @@ def run(data,
         # Run model
         out, train_out = model(img, augment=augment)  # inference and training outputs
         t1 += time_synchronized() - t
-        numb = 0
-        for si, pred in enumerate(out):
-            df.append(pd.DataFrame(pred.numpy()))
-            trush = 0
-            number = 0
-            for x1, y1, x2, y2, *b in pred.numpy():
-                if x2 - x1 <= N:
-                     trush = out[numb].tolist().pop(number)
-                     number -= 1
-                number += 1
-                numb += 1
-        df = pd.DataFrame(df)
-        df.to_csv('out.csv')
+        
+        
 
         # Compute loss
         if compute_loss:
@@ -162,6 +151,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
+            df.append(pd.DataFrame(pred.numpy()))
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
@@ -309,7 +299,8 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-    
+    df = pd.DataFrame(df)
+    df.to_csv('out.csv')
     # Return results
     model.float()  # for training
     if not training:
