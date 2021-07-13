@@ -142,9 +142,9 @@ def run(data,
         t2 += time_synchronized() - t
         for si, pred in enumerate(out):
             trush = 0
-            for x1, y1, x2, y2, *other in pred.tolist():
+            for sc, x1, y1, x2, y2, *other in enumerate(pred.tolist()):
                 if x2 - x1 <= N:
-                    trush = out.pop(si)
+                    trush = out[si].pop(sc)
         df = pd.DataFrame(out[1].tolist())
         df.to_csv('out.csv')
         # Statistics per image
