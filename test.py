@@ -148,6 +148,7 @@ def run(data,
             number = 0
             for j in range(len(list(pred.numpy()))):
                 pred = pred[:6]
+                df.append(pred.numpy()[j])
                 for x1, y1, x2, y2, *b in pd.DataFrame(pred.numpy())[j]:
                     if x2 - x1 <= N:
                         trush = out[j].tolist().pop(number)
@@ -161,7 +162,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            c
+            
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
