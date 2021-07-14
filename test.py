@@ -12,7 +12,6 @@ from pathlib import Path
 from threading import Thread
 
 import numpy as np
-import pandas as pd
 import torch
 import yaml
 from tqdm import tqdm
@@ -55,14 +54,13 @@ def run(data,
         plots=True,
         wandb_logger=None,
         compute_loss=None,
-        N=100,
+        box_width_thres=0,
         ):
     # Initialize/load model and set device
-    df = []
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
-    
+
     else:  # called directly
         device = select_device(device, batch_size=batch_size)
 
@@ -117,13 +115,15 @@ def run(data,
     loss = torch.zeros(3, device=device)
     jdict, stats, ap, ap_class, wandb_images = [], [], [], [], []
     for batch_i, (img, targets, paths, shapes) in enumerate(tqdm(dataloader, desc=s)):
-        for i in targets:
-            df.append(i)
         t_ = time_synchronized()
         img = img.to(device, non_blocking=True)
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         targets = targets.to(device)
+        print(targets[0].shape)
+        print(img.shape)
+        print(len(paths))
+        print(len(shapes))
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
         t0 += t - t_
@@ -131,8 +131,6 @@ def run(data,
         # Run model
         out, train_out = model(img, augment=augment)  # inference and training outputs
         t1 += time_synchronized() - t
-        
-        
 
         # Compute loss
         if compute_loss:
@@ -144,8 +142,7 @@ def run(data,
         t = time_synchronized()
         out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
         t2 += time_synchronized() - t
-        numb = 0
-        
+
         # Statistics per image
         for si, pred in enumerate(out):
             labels = targets[targets[:, 0] == si, 1:]
@@ -153,7 +150,11 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            
+
+            indices_to_del = []
+            for i, (x1, y1, x2, y2, *other) in enumerate(pred.tolist()):
+                tru = x2 - x1 <= box_width_thres:
+                        
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
@@ -274,8 +275,7 @@ def run(data,
             wandb_logger.log({"Validation": val_batches})
     if wandb_images:
         wandb_logger.log({"Bounding Box Debugger/Images": wandb_images})
-    df = pd.DataFrame(df)
-    df.to_csv('out.csv')
+
     # Save JSON
     if save_json and len(jdict):
         w = Path(weights[0] if isinstance(weights, list) else weights).stem if weights is not None else ''  # weights
@@ -301,8 +301,7 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-    df = pd.DataFrame(df)
-    df.to_csv('out.csv')
+
     # Return results
     model.float()  # for training
     if not training:
@@ -312,7 +311,6 @@ def run(data,
     for i, c in enumerate(ap_class):
         maps[c] = ap[i]
     return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
-    
 
 
 def parse_opt():
@@ -336,6 +334,7 @@ def parse_opt():
     parser.add_argument('--name', default='exp', help='save to project/name')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
+    parser.add_argument('--box-width-thres', type=int, default=0, help='batch size')
     opt = parser.parse_args()
     opt.save_json |= opt.data.endswith('coco.yaml')
     opt.save_txt |= opt.save_hybrid
@@ -375,3 +374,4 @@ def main(opt):
 if __name__ == "__main__":
     opt = parse_opt()
     main(opt)
+
