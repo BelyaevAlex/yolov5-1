@@ -55,7 +55,7 @@ def run(data,
         plots=True,
         wandb_logger=None,
         compute_loss=None,
-        box_width_thres=100,
+        box_width_thres=10,
         ):
     # Initialize/load model and set device
     df = []
