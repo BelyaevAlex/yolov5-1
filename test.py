@@ -154,11 +154,8 @@ def run(data,
             seen += 1
 
             indices_to_del = []
-            for i, (x1, y1, x2, y2, *other) in enumerate(pred.tolist()):
-                el = x2 - x1
-                tru =  el <= box_width_thres
-                
-            df.append(pred.tolist())            
+            tru =  pred[2] - pred[0] <= box_width_thres
+            df.append(tru.tolist())            
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
