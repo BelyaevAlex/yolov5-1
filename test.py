@@ -305,6 +305,7 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
+    df = pd.DataFrame([df])
     df.to_csv('out.csv')
     # Return results
     model.float()  # for training
