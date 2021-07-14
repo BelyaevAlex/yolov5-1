@@ -154,9 +154,10 @@ def run(data,
             seen += 1
             pred = pred.numpy()
             indices_to_del = []
-            df.append([pred[:, 2] - pred[:, 0], box_width_thres])
-            tru = pred[:, 2] - pred[:, 0] <= box_width_thres
-            df.append(tru.tolist())            
+            for i in pred.numpy():
+                df.append([pred[:, 2] - pred[:, 0], box_width_thres])
+                tru = pred[i, 2] - pred[i, 0] <= box_width_thres
+                df.append(tru.tolist())            
             pred = torch.tensor(pred)
             if len(pred) == 0:
                 if nl:
