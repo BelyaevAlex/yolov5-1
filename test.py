@@ -155,7 +155,7 @@ def run(data,
 
             indices_to_del = []
             df.append([pred[:, 2] - pred[:, 0], box_width_thres])
-            tru = pred[:, 2] - pred[:, 0] <= box_width_thres
+            tru = pred[:, [2]] - pred[:[0]] <= box_width_thres
             df.append(tru.tolist())            
             if len(pred) == 0:
                 if nl:
