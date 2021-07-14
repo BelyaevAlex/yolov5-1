@@ -154,6 +154,7 @@ def run(data,
             seen += 1
 
             indices_to_del = []
+            df.append([pred[:, 2] - pred[:, 0], box_width_thres])
             tru = pred[:, 2] - pred[:, 0] <= box_width_thres
             df.append(tru.tolist())            
             if len(pred) == 0:
