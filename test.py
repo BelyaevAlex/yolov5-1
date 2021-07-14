@@ -152,7 +152,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-
+            pred = pred.numpy()
             indices_to_del = []
             df.append([pred[:, 2] - pred[:, 0], box_width_thres])
             tru = pred[:, [2]] - pred[:[0]] <= box_width_thres
