@@ -157,7 +157,7 @@ def run(data,
             df.append([pred[:, 2] - pred[:, 0], box_width_thres])
             tru = pred[:, 2] - pred[:, 0] <= box_width_thres
             df.append(tru.tolist())            
-            pred = torch.pred
+            pred = torch.tensor(pred)
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
