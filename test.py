@@ -54,9 +54,10 @@ def run(data,
         plots=True,
         wandb_logger=None,
         compute_loss=None,
-        box_width_thres=0,
+        box_width_thres=100,
         ):
     # Initialize/load model and set device
+    df = []
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
@@ -154,6 +155,7 @@ def run(data,
             indices_to_del = []
             for i, (x1, y1, x2, y2, *other) in enumerate(pred.tolist()):
                 tru = x2 - x1 <= box_width_thres
+                df.append(pd.dataFrame(tru))
                         
             if len(pred) == 0:
                 if nl:
@@ -301,7 +303,7 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-
+    df.to_csv('out.csv')
     # Return results
     model.float()  # for training
     if not training:
