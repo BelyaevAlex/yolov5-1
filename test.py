@@ -157,8 +157,8 @@ def run(data,
             for i, (x1, y1, x2, y2, *other) in enumerate(pred.tolist()):
                 el = x2 - x1
                 tru =  el <= box_width_thres
-                df.append([x1, x2, tru])
-                        
+                
+            df.append(pred.tolist())            
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
