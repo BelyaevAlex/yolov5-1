@@ -156,7 +156,7 @@ def run(data,
             indices_to_del = []
             for i, (x1, y1, x2, y2, *other) in enumerate(pred.tolist()):
                 tru = x2 - x1 <= box_width_thres
-                df.append(pd.dataFrame(tru))
+                df.append(pd.DataFrame(tru))
                         
             if len(pred) == 0:
                 if nl:
