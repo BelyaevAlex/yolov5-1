@@ -157,7 +157,8 @@ def run(data,
             indices_to_del = []
             tru = pred[:, 2] - pred[:, 0] 
             indices_to_del = tru > box_width_thres
-            df.append(indices_to_del)
+            pred = pred[indices_to_del]
+            df.append(pred)
             a = pred[0, 2]
             
             pred = torch.tensor(pred)
