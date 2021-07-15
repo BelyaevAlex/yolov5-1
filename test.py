@@ -126,7 +126,7 @@ def run(data,
         
         
         targets = targets[targets[:, 2] - targets[:, 4]  > box_width_thres/10000]
-        for i in pred:
+        for i in targets:
             df.append(i)
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
