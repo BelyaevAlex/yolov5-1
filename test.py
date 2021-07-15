@@ -118,6 +118,10 @@ def run(data,
     loss = torch.zeros(3, device=device)
     jdict, stats, ap, ap_class, wandb_images = [], [], [], [], []
     for batch_i, (img, targets, paths, shapes) in enumerate(tqdm(dataloader, desc=s)):
+        t_ = time_synchronized()
+        img = img.to(device, non_blocking=True)
+        img = img.half() if half else img.float()  # uint8 to fp16/32
+        img /= 255.0  # 0 - 255 to 0.0 - 1.0
         df.append(targets)
         targets = targets.numpy()
         indices_to_del = []
@@ -125,10 +129,6 @@ def run(data,
         indices_to_del = tru > box_width_thres
         targets = targets[indices_to_del]
         targets = torch.tensor(targets)
-        t_ = time_synchronized()
-        img = img.to(device, non_blocking=True)
-        img = img.half() if half else img.float()  # uint8 to fp16/32
-        img /= 255.0  # 0 - 255 to 0.0 - 1.0
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
