@@ -155,6 +155,7 @@ def run(data,
             pred = pred.numpy()
             indices_to_del = []
             tru = (pred[:, 2] - pred[:, 0]) > box_width_thres
+            df.append(tru)
             
             pred = torch.tensor(pred)
             if len(pred) == 0:
