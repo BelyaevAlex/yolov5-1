@@ -159,9 +159,8 @@ def run(data,
             seen += 1
             pred = pred.numpy()
             indices_to_del = []
-            tru = pred[:, 2] - pred[:, 0] 
-            indices_to_del = tru > box_width_thres
-            pred = pred[indices_to_del]
+            
+            pred = pred[pred[:, 2] - pred[:, 0]  > box_width_thres]
             
             pred = torch.tensor(pred)
             if len(pred) == 0:
