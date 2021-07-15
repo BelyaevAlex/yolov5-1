@@ -62,7 +62,7 @@ def run(data,
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
-
+    box_width_thres = 100
     else:  # called directly
         device = select_device(device, batch_size=batch_size)
 
