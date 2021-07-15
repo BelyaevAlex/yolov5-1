@@ -124,10 +124,10 @@ def run(data,
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         
         
+        
+        targets = targets[targets[:, 2] - targets[:, 4]  > box_width_thres/100]
         for i in targets:
             df.append(i)
-        targets = targets[targets[:, 2] - targets[:, 4]  > box_width_thres/100]
-        
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
