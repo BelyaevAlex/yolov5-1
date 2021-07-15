@@ -59,7 +59,7 @@ def run(data,
         ):
     # Initialize/load model and set device
     df = []
-    box_width_thres = 100
+    box_width_thres = 300
     training = model is not None
     if training:  # called by train.py
         device = next(model.parameters()).device  # get model device
