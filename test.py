@@ -130,10 +130,6 @@ def run(data,
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         targets = targets.to(device)
-        print(targets[0].shape)
-        print(img.shape)
-        print(len(paths))
-        print(len(shapes))
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
         t0 += t - t_
