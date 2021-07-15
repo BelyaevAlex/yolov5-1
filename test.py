@@ -126,8 +126,7 @@ def run(data,
         
         
         targets = targets[targets[:, 2] - targets[:, 4]  > box_width_thres/100]
-        for i in targets:
-            df.append(i)
+        
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
@@ -156,6 +155,8 @@ def run(data,
             path = Path(paths[si])
             seen += 1
             pred = pred[pred[:, 2] - pred[:, 0]  > box_width_thres]
+            for i in pred:
+                df.append(i)
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
