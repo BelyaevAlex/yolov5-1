@@ -308,7 +308,7 @@ def run(data,
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
     
-    df = pd.DataFrame([df])
+    df = pd.DataFrame(df)
     df.to_csv('out.csv')
     # Return results
     model.float()  # for training
