@@ -125,7 +125,7 @@ def run(data,
         
         
         
-        targets = targets[targets[:, 2] - targets[:, 4]  > box_width_thres/100]
+        targets = targets[targets[:, 2] - targets[:, 4]  > 0]
         for i in targets:
             df.append(i)
         targets = targets.to(device)
