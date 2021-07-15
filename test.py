@@ -154,7 +154,9 @@ def run(data,
             seen += 1
             pred = pred.numpy()
             indices_to_del = []
-            tru = pred[:, 2] - pred[:, 0] > box_width_thres
+            tru = pred[:, 2] - pred[:, 0] 
+            indices_to_del = tru > box_width_thres
+            df.append(indices_to_del)
             a = pred[0, 2]
             
             pred = torch.tensor(pred)
@@ -304,7 +306,7 @@ def run(data,
             map, map50 = eval.stats[:2]  # update results (mAP@0.5:0.95, mAP@0.5)
         except Exception as e:
             print(f'pycocotools unable to run: {e}')
-    df.append([a])
+    
     df = pd.DataFrame([df])
     df.to_csv('out.csv')
     # Return results
