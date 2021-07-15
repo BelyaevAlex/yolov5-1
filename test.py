@@ -122,14 +122,8 @@ def run(data,
         img = img.to(device, non_blocking=True)
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
-        targets = targets.numpy()
-        indices_to_del = []
-        tru = targets[:, 4] - targets[:, 2] 
-        indices_to_del = tru > box_width_thres
-        targets = targets[indices_to_del]
-        targets = torch.tensor(targets)
-        for i in targets:
-            df.append(i)
+        targets = targets[targets[:, 4] - targets[:, 2]  > box_width_thres]
+        df.append(targets)
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
@@ -157,12 +151,7 @@ def run(data,
             tcls = labels[:, 0].tolist() if nl else []  # target class
             path = Path(paths[si])
             seen += 1
-            pred = pred.numpy()
-            indices_to_del = []
-            
             pred = pred[pred[:, 2] - pred[:, 0]  > box_width_thres]
-            
-            pred = torch.tensor(pred)
             if len(pred) == 0:
                 if nl:
                     stats.append((torch.zeros(0, niou, dtype=torch.bool), torch.Tensor(), torch.Tensor(), tcls))
