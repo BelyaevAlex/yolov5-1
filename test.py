@@ -123,9 +123,10 @@ def run(data,
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         
-        targets = targets[targets[:, 4] - targets[:, 2]  > box_width_thres]
+        
         for i in targets:
             df.append(i[4])
+        targets = targets[targets[:, 4] - targets[:, 2]  > box_width_thres]
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
