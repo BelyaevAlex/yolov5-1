@@ -125,7 +125,7 @@ def run(data,
         
         
         df.append(paths)
-        targets = targets[targets[:, 2] * width - targets[:, 4] * height  > box_width_thres]
+        targets = targets[targets[:, 2] * img.shape[3] - targets[:, 4] * img.shape[2]  > box_width_thres]
         targets = targets.to(device)
         nb, _, height, width = img.shape  # batch size, channels, height, width
         t = time_synchronized()
