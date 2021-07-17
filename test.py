@@ -125,7 +125,7 @@ def run(data,
         
         
         
-        targets = targets[targets[:, 2] * img.shape[3] - targets[:, 4] * img.shape[2]  > box_width_thres]
+        targets = targets[targets[:, 2] * img.shape[3] - targets[:, 4] * img.shape[3]  > box_width_thres]
         for i in targets:
             df.append(i)
         targets = targets.to(device)
